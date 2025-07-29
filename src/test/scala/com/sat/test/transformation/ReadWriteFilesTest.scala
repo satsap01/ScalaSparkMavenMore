@@ -13,48 +13,59 @@ class ReadWriteFilesTest extends AnyFunSuite {
     input_properties = "src/main/resources/dev/input_readWriteFiles.properties"
     properties = new Properties
     properties.load(new FileInputStream(input_properties))
+    val osName = System.getProperty("os.name").toLowerCase
+    vars.host_type = if (osName.contains("windows")) "local" else "vm"
   }
 
   @Test
   def getTablePath_value(): Unit = {
     initFunctions()
-    vars.host_type = "local"
-    var result = ReadWriteFiles.getTablePath
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("E:/7_spark_out/home/vagrant"))
-    vars.host_type = "vm"
-
-    result = ReadWriteFiles.getTablePath
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("file:///home/vagrant"))
+    if (vars.host_type == "local") {
+      val result = ReadWriteFiles.getTablePath
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("E:/7_spark_out/home/vagrant"))
+    }
+    else {
+      val result = ReadWriteFiles.getTablePath
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("file:///home/vagrant"))
+    }
   }
   @Test
   def getMyEnvPath_value(): Unit = {
     initFunctions()
-  //  getSparkSession_value()
-    vars.host_type = Constants.LOCAL
-    var result  = ReadWriteFiles.getMyEnvPath("filePath_input")
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("/1_Data/Resources/csv/input.csv"))
-
-    vars.host_type = Constants.AWS
-    result  = ReadWriteFiles.getMyEnvPath("filePath_input")
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("s3://sat-ailmt-general/input.txt"))
+    //  getSparkSession_value()
+    if (vars.host_type == Constants.LOCAL) {
+      val result = ReadWriteFiles.getMyEnvPath("filePath_input")
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("/1_Data/Resources/csv/input.csv"))
+    }
+    else if (vars.host_type == Constants.VM) {
+      val result = ReadWriteFiles.getMyEnvPath("filePath_input")
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("/1_Data/Resources/csv/input.csv"))
+    }
+    else {
+      val result = ReadWriteFiles.getMyEnvPath("filePath_input")
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("s3://sat-ailmt-general/input.txt"))
+    }
   }
   @Test
   def getSparkSession_value(): Unit = {
     val odate = "2025-07-12"
-    val host_type = "local"
-    val args = Array(odate,s"src/main/resources/dev/input_readWriteFiles.properties", host_type)
+    initFunctions()
+//    val host_type = "local"
+    val args = Array(odate,s"src/main/resources/dev/input_readWriteFiles.properties", vars.host_type)
     val spark = ReadWriteFiles.getSparkSession(args)
   }
 
   @Test
   def main_value(): Unit = {
     val odate = "2025-07-12"
-    val host_type = "local"
-    val args = Array(odate,s"src/main/resources/dev/input_readWriteFiles.properties", host_type)
+    initFunctions()
+//    val host_type = "local"
+    val args = Array(odate,s"src/main/resources/dev/input_readWriteFiles.properties", vars.host_type)
     ReadWriteFiles.main(args)
   }
 

@@ -34,7 +34,7 @@
     <sonar.jacoco.reportsPaths>${project.build.directory}/jacoco-ut.exec</sonar.jacoco.reportsPaths>
     <sonar.tests>src/test/scala</sonar.tests>
     <sonar.projectKey>SparkApp</sonar.projectKey>
-    <coverage.check>0.5</coverage.check>
+    <coverage.check>0.7</coverage.check>
     <jvm.custom.args><![CDATA[
 --add-exports java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED -Dhadoop.native.lib=false --add-opens java.base/java.net=ALL-UNNAMED
 ]]></jvm.custom.args>
@@ -191,6 +191,9 @@
           <excludes>
 <!--            <exclude>com/sat/test/transformation/ReadWriteFilesTest*</exclude>-->
           </excludes>
+          <includes>
+            <include>**/OrderedSuiteTest*</include>
+          </includes>
         </configuration>
       </plugin>
       <plugin>
