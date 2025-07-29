@@ -1,0 +1,57 @@
+# ------------------------------------------------------------
+# GitHub Actions workflow to build a Spark Scala App using Maven
+# and upload the resulting JAR and ZIP files as artifacts.
+# ------------------------------------------------------------
+
+# Define the workflow name
+name: Build Spark Scala App
+
+# Define the events that trigger this workflow
+on:
+  # Trigger automatically on push to the 'main' branch
+  push:
+    branches:
+      - main
+  # Allow manual trigger from the GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Use the latest available Ubuntu runner provided by GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code to the runner
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Java Development Kit (JDK) 17 using Temurin distribution
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin      # Temurin is a recommended OpenJDK distribution
+          java-version: 17           # Match this with your local development JDK version
+
+      # Step 3: Cache Maven dependencies to speed up builds
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository                     # Default location of Maven dependencies
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}  # Unique cache key per OS and pom.xml hash
+          restore-keys: |
+            ${{ runner.os }}-maven-                 # Fallback key if exact match isn't found
+
+      # Step 4: Build the Scala project using Maven
+      - name: Build with Maven
+        run: mvn clean package                      # Cleans old builds and runs your POM with packaging + assembly plugins
+
+      # Step 5: Show the directory structure under 'target/' to confirm what was created
+      - name: Show target directory structure
+        run: ls -R target/
+
+      # Step 6: Upload the resulting JARs and ZIPs (from Maven Assembly plugin) as downloadable artifacts
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: spark-app-build                     # Name visible under the "Artifacts" section in GitHub Actions UI
+          path: target/*.zip                        # Include any custom zipped package from Maven Assembly

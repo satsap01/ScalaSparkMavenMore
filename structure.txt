@@ -1,0 +1,320 @@
+Folder PATH listing for volume EDrive
+Volume serial number is 067F-0325
+E:.
+¦   .gitignore
+¦   derby.log
+¦   pom.xml
+¦   structure.txt
+¦   
++---.idea
+¦   ¦   .gitignore
+¦   ¦   compiler.xml
+¦   ¦   encodings.xml
+¦   ¦   jarRepositories.xml
+¦   ¦   misc.xml
+¦   ¦   scala_compiler.xml
+¦   ¦   workspace.xml
+¦   ¦   
+¦   +---codeStyles
+¦   ¦       codeStyleConfig.xml
+¦   ¦       Project.xml
+¦   ¦       
+¦   +---libraries
+¦           Maven__scala_sdk_2_10.xml
+¦           Maven__scala_sdk_2_10_6.xml
+¦           Maven__scala_sdk_2_11_12.xml
+¦           Maven__scala_sdk_2_11_13.xml
+¦           Maven__scala_sdk_2_12_15.xml
+¦           Maven__scala_sdk_2_13_8.xml
+¦           
++---1_Data
+¦   +---Resources
+¦       +---Sink
+¦       ¦   +---hdfs
+¦       ¦       +---input
+¦       ¦       ¦       input.txt
+¦       ¦       ¦       
+¦       ¦       +---output
+¦       ¦           +---out.txt
+¦       ¦                   .part-00000-d7c3e778-82ae-4f75-975e-5230e9dc6397-c000.txt.crc
+¦       ¦                   ._SUCCESS.crc
+¦       ¦                   part-00000-d7c3e778-82ae-4f75-975e-5230e9dc6397-c000.txt
+¦       ¦                   _SUCCESS
+¦       ¦                   
+¦       +---spark-warehouse
+¦           +---userdb.db
+¦               +---employee
+¦                       a.csv
+¦                       
++---metastore_db
+¦   ¦   db.lck
+¦   ¦   README_DO_NOT_TOUCH_FILES.txt
+¦   ¦   service.properties
+¦   ¦   
+¦   +---log
+¦   ¦       log.ctrl
+¦   ¦       log1.dat
+¦   ¦       logmirror.ctrl
+¦   ¦       README_DO_NOT_TOUCH_FILES.txt
+¦   ¦       
+¦   +---seg0
+¦   ¦       c10.dat
+¦   ¦       c101.dat
+¦   ¦       c111.dat
+¦   ¦       c121.dat
+¦   ¦       c130.dat
+¦   ¦       c141.dat
+¦   ¦       c150.dat
+¦   ¦       c161.dat
+¦   ¦       c171.dat
+¦   ¦       c180.dat
+¦   ¦       c191.dat
+¦   ¦       c1a1.dat
+¦   ¦       c1b1.dat
+¦   ¦       c1c0.dat
+¦   ¦       c1d1.dat
+¦   ¦       c1e0.dat
+¦   ¦       c1f1.dat
+¦   ¦       c20.dat
+¦   ¦       c200.dat
+¦   ¦       c211.dat
+¦   ¦       c221.dat
+¦   ¦       c230.dat
+¦   ¦       c241.dat
+¦   ¦       c251.dat
+¦   ¦       c260.dat
+¦   ¦       c271.dat
+¦   ¦       c281.dat
+¦   ¦       c290.dat
+¦   ¦       c2a1.dat
+¦   ¦       c2b1.dat
+¦   ¦       c2c1.dat
+¦   ¦       c2d0.dat
+¦   ¦       c2e1.dat
+¦   ¦       c2f0.dat
+¦   ¦       c300.dat
+¦   ¦       c31.dat
+¦   ¦       c311.dat
+¦   ¦       c321.dat
+¦   ¦       c331.dat
+¦   ¦       c340.dat
+¦   ¦       c351.dat
+¦   ¦       c361.dat
+¦   ¦       c371.dat
+¦   ¦       c380.dat
+¦   ¦       c391.dat
+¦   ¦       c3a1.dat
+¦   ¦       c3b1.dat
+¦   ¦       c3c0.dat
+¦   ¦       c3d1.dat
+¦   ¦       c3e1.dat
+¦   ¦       c3f1.dat
+¦   ¦       c400.dat
+¦   ¦       c41.dat
+¦   ¦       c411.dat
+¦   ¦       c421.dat
+¦   ¦       c430.dat
+¦   ¦       c441.dat
+¦   ¦       c451.dat
+¦   ¦       c461.dat
+¦   ¦       c470.dat
+¦   ¦       c481.dat
+¦   ¦       c490.dat
+¦   ¦       c4a1.dat
+¦   ¦       c4b0.dat
+¦   ¦       c4c1.dat
+¦   ¦       c4d1.dat
+¦   ¦       c4e1.dat
+¦   ¦       c4f0.dat
+¦   ¦       c501.dat
+¦   ¦       c51.dat
+¦   ¦       c510.dat
+¦   ¦       c521.dat
+¦   ¦       c530.dat
+¦   ¦       c541.dat
+¦   ¦       c550.dat
+¦   ¦       c561.dat
+¦   ¦       c570.dat
+¦   ¦       c581.dat
+¦   ¦       c590.dat
+¦   ¦       c5a1.dat
+¦   ¦       c5b0.dat
+¦   ¦       c5c1.dat
+¦   ¦       c5d0.dat
+¦   ¦       c5e1.dat
+¦   ¦       c5f0.dat
+¦   ¦       c60.dat
+¦   ¦       c601.dat
+¦   ¦       c610.dat
+¦   ¦       c621.dat
+¦   ¦       c630.dat
+¦   ¦       c641.dat
+¦   ¦       c650.dat
+¦   ¦       c661.dat
+¦   ¦       c670.dat
+¦   ¦       c681.dat
+¦   ¦       c690.dat
+¦   ¦       c6a1.dat
+¦   ¦       c6b0.dat
+¦   ¦       c6c1.dat
+¦   ¦       c6d0.dat
+¦   ¦       c6e1.dat
+¦   ¦       c6f0.dat
+¦   ¦       c701.dat
+¦   ¦       c71.dat
+¦   ¦       c711.dat
+¦   ¦       c721.dat
+¦   ¦       c731.dat
+¦   ¦       c741.dat
+¦   ¦       c751.dat
+¦   ¦       c761.dat
+¦   ¦       c771.dat
+¦   ¦       c781.dat
+¦   ¦       c791.dat
+¦   ¦       c7a1.dat
+¦   ¦       c7b1.dat
+¦   ¦       c7c1.dat
+¦   ¦       c7d1.dat
+¦   ¦       c7e1.dat
+¦   ¦       c7f1.dat
+¦   ¦       c801.dat
+¦   ¦       c81.dat
+¦   ¦       c811.dat
+¦   ¦       c821.dat
+¦   ¦       c831.dat
+¦   ¦       c840.dat
+¦   ¦       c851.dat
+¦   ¦       c860.dat
+¦   ¦       c871.dat
+¦   ¦       c880.dat
+¦   ¦       c891.dat
+¦   ¦       c8a0.dat
+¦   ¦       c8b1.dat
+¦   ¦       c8c1.dat
+¦   ¦       c8d1.dat
+¦   ¦       c8e1.dat
+¦   ¦       c8f1.dat
+¦   ¦       c90.dat
+¦   ¦       c901.dat
+¦   ¦       c911.dat
+¦   ¦       c920.dat
+¦   ¦       c931.dat
+¦   ¦       c941.dat
+¦   ¦       c951.dat
+¦   ¦       c961.dat
+¦   ¦       c971.dat
+¦   ¦       c980.dat
+¦   ¦       c991.dat
+¦   ¦       c9a0.dat
+¦   ¦       c9b1.dat
+¦   ¦       c9c0.dat
+¦   ¦       c9d1.dat
+¦   ¦       c9e1.dat
+¦   ¦       c9f0.dat
+¦   ¦       ca01.dat
+¦   ¦       ca1.dat
+¦   ¦       ca11.dat
+¦   ¦       ca20.dat
+¦   ¦       ca31.dat
+¦   ¦       ca41.dat
+¦   ¦       ca51.dat
+¦   ¦       cb1.dat
+¦   ¦       cc0.dat
+¦   ¦       cd1.dat
+¦   ¦       ce1.dat
+¦   ¦       cf0.dat
+¦   ¦       README_DO_NOT_TOUCH_FILES.txt
+¦   ¦       
+¦   +---tmp
++---src
+¦   +---main
+¦       +---assembly
+¦       ¦       copy-files.xml
+¦       ¦       
+¦       +---resources
+¦       ¦   +---dev
+¦       ¦           config.properties
+¦       ¦           SparkApp_input.properties
+¦       ¦           SparkApp_run.sh
+¦       ¦           
+¦       +---scala
+¦           +---com
+¦               +---sat
+¦                   +---test
+¦                       +---common
+¦                       ¦       PropertyController.scala
+¦                       ¦       SparkController.scala
+¦                       ¦       
+¦                       +---constants
+¦                       ¦       Constants.scala
+¦                       ¦       
+¦                       +---transformation
+¦                               A0001_Run_SparkAppDriver.scala
+¦                               SparkApp.scala
+¦                               SparkAppOld.scala
+¦                               
++---target
+    ¦   SimpleSparkApp-1.0.jar
+    ¦   
+    +---analysis
+    ¦       compile
+    ¦       
+    +---archive-tmp
+    ¦       SimpleSparkApp-1.0.jar
+    ¦       
+    +---classes
+    ¦   +---com
+    ¦   ¦   +---sat
+    ¦   ¦       +---test
+    ¦   ¦           +---common
+    ¦   ¦           ¦       PropertyController$.class
+    ¦   ¦           ¦       PropertyController.class
+    ¦   ¦           ¦       SparkController$.class
+    ¦   ¦           ¦       SparkController.class
+    ¦   ¦           ¦       
+    ¦   ¦           +---constants
+    ¦   ¦           ¦       Constants$.class
+    ¦   ¦           ¦       Constants.class
+    ¦   ¦           ¦       
+    ¦   ¦           +---transformation
+    ¦   ¦                   A0001_Run_SparkAppDriver$.class
+    ¦   ¦                   A0001_Run_SparkAppDriver$delayedInit$body.class
+    ¦   ¦                   A0001_Run_SparkAppDriver.class
+    ¦   ¦                   SparkApp$.class
+    ¦   ¦                   SparkApp.class
+    ¦   ¦                   SparkAppOld$.class
+    ¦   ¦                   SparkAppOld.class
+    ¦   ¦                   
+    ¦   +---dev
+    ¦           config.properties
+    ¦           SparkApp_input.properties
+    ¦           SparkApp_run.sh
+    ¦           
+    +---generated-sources
+    ¦   +---annotations
+    +---maven-archiver
+    ¦       pom.properties
+    ¦       
+    +---maven-status
+    ¦   +---maven-compiler-plugin
+    ¦       +---compile
+    ¦           +---default-compile
+    ¦                   inputFiles.lst
+    ¦                   
+    +---SimpleSparkApp-1.0
+        +---AppCode
+        ¦   +---Transformation
+        ¦       +---SparkApp
+        ¦               SparkApp_run.sh
+        ¦               
+        +---AppConfigs
+        ¦   +---Transformation
+        ¦       +---SparkApp
+        ¦               config.properties
+        ¦               SparkApp_input.properties
+        ¦               
+        +---AppLib
+            +---Transformation
+                +---SparkApp
+                        SimpleSparkApp-1.0.jar
+                        
