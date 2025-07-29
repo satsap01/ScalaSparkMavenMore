@@ -1,0 +1,284 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.sat.test</groupId>
+  <artifactId>SimpleSparkMavenMore</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <scala.version>2.12.17</scala.version>
+    <spark.version>3.5.4</spark.version>
+    <scala.artifact.version>2.12</scala.artifact.version>
+    <scala.version1>2.13.8</scala.version1>
+    <spark.version1>3.3.1</spark.version1>
+    <scala.artifact.version1>2.13</scala.artifact.version1>
+    <hadoop.version>3.3.6</hadoop.version>
+    <java.version>17</java.version>
+    <maven.compiler.version>3.3</maven.compiler.version>
+    <sonar.version>3.9.1.2184</sonar.version>
+    <junit.version>4.13.2</junit.version>
+    <scalatest.version>3.2.15</scalatest.version>
+    <surefire.plugin.version>2.19</surefire.plugin.version>
+    <scalatools.version>2.15.2</scalatools.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}\jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.jacoco.reportsPaths>${project.build.directory}\jacoco-ut.exec</sonar.jacoco.reportsPaths>
+    <sonar.tests>src/test/scala</sonar.tests>
+    <sonar.projectKey>SparkApp</sonar.projectKey>
+    <coverage.check>0.70</coverage.check>
+    <argLine></argLine>
+  </properties>
+
+  <dependencies>
+    <!-- Scala Standard Library -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+
+    <!-- Spark Core -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_${scala.artifact.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+    <!-- Spark SQL -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_${scala.artifact.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+    <!-- Spark Hive -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-hive_${scala.artifact.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_${scala.artifact.version}</artifactId>
+      <version>${scalatest.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+
+    <plugins>
+
+      <!-- Scala Compiler Plugin -->
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>4.5.3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <scalaVersion>${scala.version}</scalaVersion>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Maven Assembly Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <!-- Fat jar with dependencies -->
+<!--
+          <execution>
+            <id>make-fat-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <archive>
+                <manifest>
+                  <mainClass>com.sat.test.SparkApp</mainClass>
+                </manifest>
+              </archive>
+              <finalName>${project.artifactId}-${project.version}-fat</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
+              <attach>true</attach>
+            </configuration>
+          </execution>
+-->
+
+          <!-- Copy config files and fat jar to folders -->
+          <execution>
+            <id>copy-files-to-custom-dirs</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/copy-files.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+          <execution>
+            <id>zip-files-to-custom-dirs</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/zip-file.xml</descriptor>
+              </descriptors>
+              <finalName>${project.artifactId}-${project.version}-zip</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.plugin.version}</version>
+        <configuration>
+          <argLine>${argLine}</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>${sonar.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <version>${scalatools.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <execution>
+            <id>default-prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <destFile>${project.build.directory}/jacoco-ut.exec</destFile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>default-report</id>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+              <outputEncoding>UTF-8</outputEncoding>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+              <excludes>
+                <exclude>com/sat/test/transformation/A0001_Run_SparkAppDriver$*</exclude>
+                <exclude>com/sat/test/transformation/SparkAppOld$*</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>default-check</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+<!--
+                    <limit>
+                      <counter>INSTRUCTION</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${coverage.check}</minimum> &lt;!&ndash; 80% minimum &ndash;&gt;
+                    </limit>
+                    <limit>
+                      <counter>BRANCH</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${coverage.check}</minimum> &lt;!&ndash; 70% minimum &ndash;&gt;
+                    </limit>
+-->
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${coverage.check}</minimum> <!-- 80% minimum -->
+                    </limit>
+<!--
+                    <limit>
+                      <counter>METHOD</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${coverage.check}</minimum> &lt;!&ndash; 80% minimum &ndash;&gt;
+                    </limit>
+                    <limit>
+                      <counter>CLASS</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${coverage.check}</minimum> &lt;!&ndash; 80% minimum &ndash;&gt;
+                    </limit>
+-->
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
+    </plugins>
+  </build>
+</project>
