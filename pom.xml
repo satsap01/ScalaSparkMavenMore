@@ -33,7 +33,7 @@
     <sonar.jacoco.reportsPaths>${project.build.directory}\jacoco-ut.exec</sonar.jacoco.reportsPaths>
     <sonar.tests>src/test/scala</sonar.tests>
     <sonar.projectKey>SparkApp</sonar.projectKey>
-    <coverage.check>0.70</coverage.check>
+    <coverage.check>0.71</coverage.check>
     <argLine></argLine>
   </properties>
 
