@@ -47,6 +47,7 @@ jobs:
         env:
           SPARK_MASTER_URL: local[*]
           BASE_PATH: /tmp
+
       # Step 5: Show the directory structure under 'target/' to confirm what was created
       - name: Show target directory structure
         run: ls -R target/
