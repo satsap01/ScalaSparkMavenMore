@@ -52,10 +52,11 @@ object ReadWriteFiles {
     spark
   }
   def getTablePath = {
+    val basePath = sys.env.getOrElse("BASE_PATH", "")
     val fullTablePath = if (host_type == Constants.LOCAL)
       properties.getProperty("local_table_Path") + properties.getProperty("cluster_table_Path")
     else if(host_type == Constants.VM)
-      "file://" + properties.getProperty("cluster_table_Path")
+      "file://" + basePath + properties.getProperty("cluster_table_Path")
     else
       ""
     println("tablePath : " + fullTablePath)
