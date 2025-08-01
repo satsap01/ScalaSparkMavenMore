@@ -13,16 +13,29 @@ object SparkController {
 
  def start(): SparkSession = {
   //Starting the process requires establishing the Spark and Hive contexts
-  spark = SparkSession
-    .builder()
+//  spark = SparkSession
+//    .builder()
+//    .appName(Constants.app_name)
+//    .config("hive.exec.dynamic.partition", "true")
+//    .config("hive.exec.dynamic.partition.mode", "nonstrict")
+//    .enableHiveSupport()
+//    .getOrCreate()
+
+  println("Spark Session started")
+
+  val builder = SparkSession.builder()
     .appName(Constants.app_name)
     .config("hive.exec.dynamic.partition", "true")
     .config("hive.exec.dynamic.partition.mode", "nonstrict")
-    .enableHiveSupport()
-    .getOrCreate()
+
+  spark = sys.env.get("SPARK_MASTER_URL") match {
+   case Some(url) if url.nonEmpty =>
+    builder.master(url).enableHiveSupport().getOrCreate()
+   case _ =>
+    builder.enableHiveSupport().getOrCreate()
+  }
   spark.sparkContext.setLogLevel("ERROR")
 
-  println("Spark Session started")
   spark
  }
 
