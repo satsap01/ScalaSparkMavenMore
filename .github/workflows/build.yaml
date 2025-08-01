@@ -44,6 +44,8 @@ jobs:
       # Step 4: Build the Scala project using Maven
       - name: Build with Maven
         run: mvn clean package                      # Cleans old builds and runs your POM with packaging + assembly plugins
+        env:
+          SPARK_MASTER_URL: local[*]
 
       # Step 5: Show the directory structure under 'target/' to confirm what was created
       - name: Show target directory structure
