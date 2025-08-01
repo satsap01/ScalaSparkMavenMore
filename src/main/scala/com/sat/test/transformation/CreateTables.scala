@@ -81,10 +81,11 @@ object CreateTables {
     spark
   }
   def getTablePath = {
+    val basePath = sys.env.getOrElse("BASE_PATH", "")
     val fullTablePath = if (host_type == "local")
       properties.getProperty("local_table_Path") + properties.getProperty("cluster_table_Path")
     else
-      "file://" + properties.getProperty("cluster_table_Path")
+      "file://" + basePath + properties.getProperty("cluster_table_Path")
     println("tablePath : " + fullTablePath)
     fullTablePath
   }
