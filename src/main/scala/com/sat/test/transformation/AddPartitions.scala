@@ -75,6 +75,7 @@ object AddPartitions {
     input_properties = args(1)
     host_type = args(2)
     properties.load(new FileInputStream(input_properties))
+    println("host_type : " + host_type + " : ")
     val spark = if (host_type == "local") SparkController.startLocalTest() else SparkController.start()
     spark
   }

@@ -9,40 +9,43 @@ import java.io.FileInputStream
 import java.util.Properties
 
 class CreateTablesTest extends AnyFunSuite {
-
   def initFunctions() = {
     input_properties = "src/main/resources/dev/input_createTables.properties"
     properties = new Properties
     properties.load(new FileInputStream(input_properties))
+    val osName = System.getProperty("os.name").toLowerCase
+    vars.host_type = if (osName.contains("windows")) "local" else "vm"
   }
 
   @Test
   def getSparkSession_value(): Unit = {
     val odate = "2025-07-12"
-    val host_type = "local"
-    val args = Array(odate,s"src/main/resources/dev/input_createTables.properties", host_type)
+//    val host_type = "local"
+    initFunctions()
+    val args = Array(odate,s"src/main/resources/dev/input_createTables.properties", vars.host_type)
     val spark = CreateTables.getSparkSession(args)
   }
 
   @Test
   def getTablePath_value(): Unit = {
     initFunctions()
-    vars.host_type = "local"
-    var result = CreateTables.getTablePath
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("E:/7_spark_out/home/vagrant"))
-    vars.host_type = "vm"
-
-    result = CreateTables.getTablePath
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("file:///home/vagrant"))
+    if (vars.host_type == "local") {
+      val result = CreateTables.getTablePath
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("E:/7_spark_out/home/vagrant"))
+    }
+    else {
+      val result = CreateTables.getTablePath
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("file:///home/vagrant"))
+    }
   }
 
   @Test
   def main_value(): Unit = {
     val odate = "2025-07-12"
-    val host_type = "local"
-    val args = Array(odate,s"src/main/resources/dev/input_createTables.properties", host_type)
+    initFunctions()
+    val args = Array(odate,s"src/main/resources/dev/input_createTables.properties", vars.host_type)
     CreateTables.main(args)
   }
 

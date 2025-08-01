@@ -14,35 +14,40 @@ class AddPartitionsTest extends AnyFunSuite {
     input_properties = "src/main/resources/dev/input_addPartitions.properties"
     properties = new Properties
     properties.load(new FileInputStream(input_properties))
+    val osName = System.getProperty("os.name").toLowerCase
+    vars.host_type = if (osName.contains("windows")) "local" else "vm"
   }
 
   @Test
   def getSparkSession_value(): Unit = {
     val odate = "2025-07-12"
-    val host_type = "local"
-    val args = Array(odate,s"src/main/resources/dev/input_addPartitions.properties", host_type)
+//    val host_type = "local"
+    val args = Array(odate,s"src/main/resources/dev/input_addPartitions.properties", vars.host_type)
     val spark = AddPartitions.getSparkSession(args)
   }
 
   @Test
   def getTablePath_value(): Unit = {
     initFunctions()
-    vars.host_type = "local"
-    var result = AddPartitions.getTablePath
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("E:/7_spark_out/home/vagrant"))
-    vars.host_type = "vm"
-
-    result = AddPartitions.getTablePath
-    println(">>>>>>>>>>>>>>>>>>>" + result)
-    assert(result.equals("file:///home/vagrant"))
+    if (vars.host_type == "local") {
+      val result = AddPartitions.getTablePath
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("E:/7_spark_out/home/vagrant"))
+    }
+    else {
+      val result = AddPartitions.getTablePath
+      println(">>>>>>>>>>>>>>>>>>>" + result)
+      assert(result.equals("file:///home/vagrant"))
+    }
   }
 
   @Test
   def main_value(): Unit = {
     val odate = "2025-07-12"
-    val host_type = "local"
-    val args = Array(odate,s"src/main/resources/dev/input_addPartitions.properties", host_type)
+    initFunctions()
+//    val host_type = "local"
+    println("vars.host_type : " + vars.host_type + " :")
+    val args = Array(odate,s"src/main/resources/dev/input_addPartitions.properties", vars.host_type)
     AddPartitions.main(args)
   }
 
