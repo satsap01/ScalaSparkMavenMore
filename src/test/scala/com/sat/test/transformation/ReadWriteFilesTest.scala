@@ -9,12 +9,14 @@ import java.io.FileInputStream
 import java.util.Properties
 
 class ReadWriteFilesTest extends AnyFunSuite {
+  val basePath = sys.env.getOrElse("BASE_PATH", "")
   def initFunctions() = {
     input_properties = "src/main/resources/dev/input_readWriteFiles.properties"
     properties = new Properties
     properties.load(new FileInputStream(input_properties))
     val osName = System.getProperty("os.name").toLowerCase
     vars.host_type = if (osName.contains("windows")) "local" else "vm"
+
   }
 
   @Test
@@ -28,7 +30,8 @@ class ReadWriteFilesTest extends AnyFunSuite {
     else {
       val result = ReadWriteFiles.getTablePath
       println(">>>>>>>>>>>>>>>>>>>" + result)
-      assert(result.equals("file:///home/vagrant"))
+//      assert(result.equals("file:///home/vagrant"))
+      assert(result.equals(s"file://${basePath}/home/vagrant"))
     }
   }
   @Test
