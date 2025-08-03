@@ -9,7 +9,7 @@ import java.io.FileInputStream
 import java.util.Properties
 
 class AddPartitionsTest extends AnyFunSuite {
-
+  val basePath = sys.env.getOrElse("BASE_PATH", "")
   def initFunctions() = {
     input_properties = "src/main/resources/dev/input_addPartitions.properties"
     properties = new Properties
@@ -37,7 +37,8 @@ class AddPartitionsTest extends AnyFunSuite {
     else {
       val result = AddPartitions.getTablePath
       println(">>>>>>>>>>>>>>>>>>>" + result)
-      assert(result.equals("file:///home/vagrant"))
+//      assert(result.equals("file:///home/vagrant"))
+      assert(result.equals(s"file://${basePath}/home/vagrant"))
     }
   }
 
