@@ -9,6 +9,7 @@ import java.io.FileInputStream
 import java.util.Properties
 
 class CreateTablesTest extends AnyFunSuite {
+  val basePath = sys.env.getOrElse("BASE_PATH", "")
   def initFunctions() = {
     input_properties = "src/main/resources/dev/input_createTables.properties"
     properties = new Properties
@@ -37,7 +38,7 @@ class CreateTablesTest extends AnyFunSuite {
     else {
       val result = CreateTables.getTablePath
       println(">>>>>>>>>>>>>>>>>>>" + result)
-      assert(result.equals("file:///home/vagrant"))
+      assert(result.equals(s"file://${basePath}/home/vagrant"))
     }
   }
 
