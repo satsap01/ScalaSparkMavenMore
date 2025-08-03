@@ -41,6 +41,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-                 # Fallback key if exact match isn't found
 
+      - name: Setup test data
+        run: |
+          mkdir -p /tmp/home/vagrant/1_Data/Resources/csv
+          cp src/test/resources/input.csv /tmp/home/vagrant/1_Data/Resources/csv/input.csv
+
       # Step 4: Build the Scala project using Maven
       - name: Build with Maven
         run: mvn clean package                      # Cleans old builds and runs your POM with packaging + assembly plugins
