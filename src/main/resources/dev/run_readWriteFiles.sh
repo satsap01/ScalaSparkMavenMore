@@ -53,7 +53,7 @@ else
   echo "File from S3"
 fi
 
-
+set -x
 # Run Spark application
 spark-submit \
 --verbose \
@@ -75,6 +75,7 @@ ${ODATE} \
 ${LOCAL_APPCONFIG_DIR}/${LOCAL_INPUT_READ_WRITE_FILES} \
 ${LOCAL_HOST_TYPE}
 
+set +x
 #######################################################
 # HDFS output to display
 #######################################################
