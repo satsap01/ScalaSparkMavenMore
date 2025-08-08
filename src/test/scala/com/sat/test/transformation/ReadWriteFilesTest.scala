@@ -29,7 +29,7 @@ class ReadWriteFilesTest extends AnyFunSuite {
     }
     else {
       val result = ReadWriteFiles.getTablePath
-      println(">>>>>>>>>>>>>>>>>>>" + result)
+      println(">>>>>>>>>>>>>>>>>>>" + result + "   :   <<<<<<<<<<<<<<<< " + basePath)
 //      assert(result.equals("file:///home/vagrant"))
       assert(result.equals(s"file://${basePath}/home/vagrant"))
     }

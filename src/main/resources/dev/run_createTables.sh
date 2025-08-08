@@ -1,9 +1,18 @@
 #!/bin/bash
 
+if curl --connect-timeout 1 -s http://169.254.169.254/latest/meta-data/ >/dev/null; then
+  RUN_HOST_TYPE="aws"
+else
+  RUN_HOST_TYPE="vm"
+fi
+export RUN_HOST_TYPE
+
 # Load Configurations
 CURRENT_PATH="$( dirname "$(readlink -f -- "$0")" )"
 PROJECT_NAME=${CURRENT_PATH##*/}
 PROJECT_PROPERTIES_DIR=$(readlink -f ${CURRENT_PATH}/../../../AppConfigs/Transformation/${PROJECT_NAME})
+
+echo "LOCAL_HOST_TYPE=${RUN_HOST_TYPE}" >> ${PROJECT_PROPERTIES_DIR}/config.properties
 . ${PROJECT_PROPERTIES_DIR}/config.properties
 
 sed -e ':a' -e '/\\$/N; s/\\\n//; ta' "${PROJECT_PROPERTIES_DIR}/${LOCAL_INPUT_CREATE_TABLES_FILE}" | while IFS= read -r line; do
