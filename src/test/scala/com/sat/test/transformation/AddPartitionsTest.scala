@@ -36,7 +36,7 @@ class AddPartitionsTest extends AnyFunSuite {
     }
     else {
       val result = AddPartitions.getTablePath
-      println(">>>>>>>>>>>>>>>>>>>" + result)
+      println(">>>>>>>>>>>>>>>>>>>" + result + "   :   <<<<<<<<<<<<<<<< " + basePath)
 //      assert(result.equals("file:///home/vagrant"))
       assert(result.equals(s"file://${basePath}/home/vagrant"))
     }
