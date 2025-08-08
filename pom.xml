@@ -14,9 +14,12 @@
     <scala.version>2.12.17</scala.version>
     <spark.version>3.5.4</spark.version>
     <scala.artifact.version>2.12</scala.artifact.version>
+
     <scala.version1>2.13.8</scala.version1>
-    <spark.version1>3.3.1</spark.version1>
+    <spark.version1>3.4.1</spark.version1>
     <scala.artifact.version1>2.13</scala.artifact.version1>
+    <spark.version1>3.3.1</spark.version1>
+
     <hadoop.version>3.3.6</hadoop.version>
     <java.version>17</java.version>
     <maven.compiler.version>3.3</maven.compiler.version>
@@ -84,6 +87,18 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-aws</artifactId>
+      <version>${hadoop.version}</version>
+    </dependency>
+
+    <!-- AWS SDK for Java (S3 client) -->
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-bundle</artifactId>
+      <version>1.12.527</version>  <!-- You can check for latest compatible version -->
+    </dependency>
 
   </dependencies>
 

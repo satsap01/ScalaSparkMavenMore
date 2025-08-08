@@ -39,6 +39,7 @@ else
 fi
 echo
 
+set -x
 # Run Spark application
 spark-submit \
 --verbose \
@@ -55,10 +56,13 @@ spark-submit \
 --conf spark.memory.offHeap.enabled=true \
 --conf spark.memory.offHeap.size=500M   \
 --files ${LOCAL_APPCONFIG_DIR}/${LOCAL_INPUT_ADD_PARTITIONS_FILE} \
+--conf spark.dynamicAllocation.enabled=false \
 ${LOCAL_JAR_FILE} \
 ${ODATE} \
 ${LOCAL_APPCONFIG_DIR}/${LOCAL_INPUT_ADD_PARTITIONS_FILE} \
 ${LOCAL_HOST_TYPE}
+
+set +x
 
 echo "SCRIPT FINISH -------- `date`"
 ########################################################

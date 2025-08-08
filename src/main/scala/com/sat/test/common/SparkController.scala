@@ -4,7 +4,7 @@
 //*****************************************************************************************/
 package com.sat.test.common
 
-import com.sat.test.fields.Constants
+import com.sat.test.fields.{Constants, vars}
 import org.apache.spark.sql.SparkSession
 object SparkController {
 
@@ -23,11 +23,18 @@ object SparkController {
 
   println("Spark Session started")
 
-  val builder = SparkSession.builder()
+  var builder = SparkSession.builder()
     .appName(Constants.app_name)
     .config("hive.exec.dynamic.partition", "true")
     .config("hive.exec.dynamic.partition.mode", "nonstrict")
 
+  // ✅ Only add Glue config if host_type is "aws"
+  if (vars.host_type == Constants.AWS) {
+   builder = builder.config(
+    "hive.metastore.client.factory.class",
+    "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+   )
+  }
   spark = sys.env.get("SPARK_MASTER_URL") match {
    case Some(url) if url.nonEmpty =>
     builder.master(url).enableHiveSupport().getOrCreate()
