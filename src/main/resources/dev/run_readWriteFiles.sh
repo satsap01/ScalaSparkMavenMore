@@ -1,10 +1,21 @@
 #!/bin/bash
+
+# Default to local VM
+LOCAL_HOST_TYPE="vm"
+
+# Check if we're in AWS EC2
 if curl --connect-timeout 1 -s http://169.254.169.254/latest/meta-data/ >/dev/null; then
-  RUN_HOST_TYPE="aws"
-else
-  RUN_HOST_TYPE="vm"
+  # We're on AWS EC2
+  # Now check if any EMR cluster is active (WAITING or RUNNING)
+  EMR_CLUSTERS=$(aws emr list-clusters --active --query 'Clusters[?Status.State==`WAITING` || Status.State==`RUNNING`]' --output json 2>/dev/null)
+
+  if [[ "$EMR_CLUSTERS" != "[]" && -n "$EMR_CLUSTERS" ]]; then
+    LOCAL_HOST_TYPE="aws"
+  fi
 fi
-export RUN_HOST_TYPE
+
+export LOCAL_HOST_TYPE
+echo "RUN_HOST_TYPE : ${RUN_HOST_TYPE}"
 
 # Load Configurations
 CURRENT_PATH="$( dirname "$(readlink -f -- "$0")" )"
